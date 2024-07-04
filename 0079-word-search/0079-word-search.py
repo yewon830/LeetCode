@@ -19,10 +19,10 @@ class Solution:
                         if backTracking(nr,nc,w+1):
                             return True #단어 발견
 
-                visited[cr][cc] = 0
-                    
+                visited[cr][cc] = 0               
                 return False
-            
+            else:
+                return False
         
         for i in range(n):
             for j in range(m):
