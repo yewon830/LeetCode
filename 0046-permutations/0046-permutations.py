@@ -5,7 +5,6 @@ class Solution:
             
             if len(perm) == len(nums):
                 result.append(perm[:])
-                return 
             
             for i in range(len(nums)):
                 if(nums[i] not in perm):
