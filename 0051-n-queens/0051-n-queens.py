@@ -21,10 +21,15 @@ class Solution:
             return True
 
         def backTracking(c,path):
-            if c == n:
+            cnt = 0;
+            for i in range(n):
+                for j in range(n):
+                    if board[i][j] == 'Q':
+                        cnt += 1
+            if cnt == n:
                 new_path = copy.deepcopy(path)
                 result.append(''.join(row) for row in new_path)
-                return
+                return True
             
             for i in range(n):
                 if check(i, c):
