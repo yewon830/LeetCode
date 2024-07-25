@@ -1,26 +1,31 @@
 class Solution:
     def trap(self, height: List[int]) -> int:
         # 투포인터로 풀어보자
+        # 좌우에서 이동을 하는데, 왼쪽과 오른쪽을 비교해서 낮은 걸 기준으로 움직인다.
+        # 가장 높은 왼쪽, 가장 높은 오른쪽 기준을 세운다
+        # 이동하면서, 가장 높은거 - 지금을 cnt에 더한다
+        
         left = 0
         right = len(height)-1
-        rain = 0
-        highest_left = height[left] 
+        highest_left = height[left]
         highest_right = height[right]
-        while(left<right):
-            # 더 낮은 기둥을 기준으로 물을 채울 수 있다
-            #왼쪽 벽이 더 낮음
-            if height[left]<= height[right]:
+        cnt = 0
+        while left < right:
+            if height[left] <= height[right]:
                 left += 1
-                if highest_left > height[left]:
-                    rain += highest_left - height[left]
-                else:
+                if height[left] > highest_left:
                     highest_left = height[left]
+                else:
+                    cnt += highest_left - height[left]
             else:
                 right -= 1
-                if highest_right > height[right]:
-                    rain += highest_right - height[right]
-                else:
+                # 높이 갱신
+                if height[right] > highest_right:
                     highest_right = height[right]
-        return rain
+                else:
+                    cnt += highest_right - height[right]
+        return cnt
+
+            
                     
                     
