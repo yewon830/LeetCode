@@ -1,20 +1,21 @@
-class Solution(object):
-    def canVisitAllRooms(self, rooms):
-        #일단 시작은 무조건 0번방에서 시작.
-        # 이걸 그래프로 생각하면 인접리스트와 비슷해보인다.
-        # DFS나 BFS로 풀 수 있을 듯
-        stack = [0]
+from collections import deque
+
+class Solution:
+    def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
+        # 노드로 이동하기
+        #0번째 방에서 시작해서 이동
+        queue = deque()
+        queue.append(rooms[0])
         visited = [0]*len(rooms)
         visited[0] = 1
-        while stack:
-            current = stack.pop()
-            if rooms[current]:
-                for i in rooms[current]:
+        while queue:
+            cur = queue.popleft()
+            if cur:
+                for i in cur:
                     if not visited[i]:
                         visited[i] = 1
-                        stack.append(i)
-        
+                        queue.append(rooms[i])
         if 0 in visited:
             return False
-        else:
+        else: 
             return True
