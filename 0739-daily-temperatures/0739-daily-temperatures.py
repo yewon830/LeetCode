@@ -1,20 +1,16 @@
-class Solution(object):
-    def dailyTemperatures(self, temperatures):
-        stack = []
-        ans = [0]*len(temperatures)
-        # stack[-1]과지금 temp를 비교하면서
-            # 만약 temp가 크면 계속해서 pop
-        #인덱스 정보를 통해 지금 - 이전 의 결과를 ans에 담는다  .
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        #나보다 높은 온도를 만나기까지 걸리는 시간은?
+        #스택에 인덱스까지 넣어준다
+        # 인덱스에 나중-지금을 넣어주면서, 
+        # stack[-1]보다 큰 값이 나오면 들어있는걸 pop한다
         
+        stack = []
+        answer = [0] * len(temperatures)
         for day,temp in enumerate(temperatures):
-            # 스택이 있고 온도 비교를 해서 stack의 마지막보다 지금 온도가 
             while stack and stack[-1][1] < temp:
-                prev_day = stack.pop()
-                ans[prev_day[0]] = day-prev_day[0]
-            
-            #stack에 넣기 전에 pop을 해줄 수 있으므로 반복문 이후에
+                prev_day, prev_temp = stack.pop()
+                answer[prev_day] = day - prev_day
             stack.append((day,temp))
-        return ans
-            
-                
+        return answer
         
