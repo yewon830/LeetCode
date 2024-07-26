@@ -1,18 +1,18 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        # 순열
+        # 순열, 들어갔던게 또 들어갈 수 있음.
         result = []
-        def backTracking(path):
+        def perm(path):
+
             if len(path) == len(nums):
                 result.append(path[:])
                 return
-        
+            
             for i in range(len(nums)):
-                if(nums[i] not in path):
+                if nums[i] not in path:
                     path.append(nums[i])
-                    backTracking(path)
+                    perm(path)
                     path.pop()
-                
-        backTracking([])
-        return result
         
+        perm([])
+        return result
