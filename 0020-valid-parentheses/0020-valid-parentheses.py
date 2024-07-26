@@ -1,11 +1,14 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        # 괄호에 맞는지 확인
-        # 여는 괄호면 그에 맞는 닫는 괄호를 넣는다
-        #닫는 괄호가 나오면 stack의 끝이 그에 맞으편 pop한다, 아니면 false
+        #괄호 맞는지 확인
+        #여는 괄호면 닫는 괄호 append
+        # 닫는 괄호면 pop해주는데  stack 끝이랑 같아야 함
+        #아니면 false
+        #근데 만약에 스택이 남아있다면 false, 아니면 트루
+        
         stack = []
         for i in range(len(s)):
-            if s[i] == '(':
+            if s[i] == '(' :
                 stack.append(')')
             elif s[i] == '[':
                 stack.append(']')
