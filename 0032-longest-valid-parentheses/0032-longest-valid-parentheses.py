@@ -1,21 +1,20 @@
 class Solution:
     def longestValidParentheses(self, s: str) -> int:
-        # 가장 유효한 괄호 길이 찾기
-        # 찾는 법 : 처음은 -1로, 그리고 유효하지 않은 괄호를 기준점으로 삼아서 인덱스 뺴주기
-        #여는 괄호면 일단 인덱스를 넣는다
-        # 닫는 괄호가 나오면 pop
-        #스택이 있으며ㅑㄴ, 지금 인덱스 - stack[-1]을 한다. ->  longest
-        #pop하다가 스택이 비었다면, 그건 잘못된 것이므로 인덱스를 새로 넣는다.
-        
-        stack = [-1]
+        # 가장 긴 유효 괄호 찾기
+        # 가장 긴 유효 괄호 찾는 법 : -1과 잘못된 괄호를 기준점으로 해서 그 간격 재기
+        # 여는 괄호면 append(인덱스를)
+        # 닫는 괄호면 pop
+            # 스택이 있으면 , stack[-1]과 지금 인덱스를 빼고 갱신
+            # 스택이 없으면. 지금 인덱스 append
         longest = 0
-        for i,c in enumerate(s):
-            if c == '(':
+        stack = [-1]
+        for i in range(len(s)):
+            if s[i] == '(':
                 stack.append(i)
             else:
                 stack.pop()
                 if stack:
-                    longest = max(longest,i - stack[-1])
+                    longest = max(longest, i - stack[-1])
                 else:
                     stack.append(i)
         return longest
