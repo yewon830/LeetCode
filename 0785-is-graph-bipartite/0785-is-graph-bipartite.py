@@ -2,24 +2,36 @@ from collections import deque
 
 class Solution:
     def isBipartite(self, graph: List[List[int]]) -> bool:
-        # 집합 A,B 두개로 나눠서 a요소-b요소끼리 연결이 모두 되어있나 확인
-        # 지금 방문했을 때, 연결 되어있는 녀석들은 다른 집합에 들어가야 한다.
-        
-        # -1을 미할당, 0을 A, 1을 B
-        check = [-1 for _ in range(len(graph))] 
-        for i in range(len(check)):
-            if check[i] == -1:
-                queue = deque([i])
-                check[i] = 0
-                while queue:
-                    current = queue.popleft()
-                    for j in graph[current]:
-                        if check[j] == -1:
-                            if check[current] == 0:
-                                check[j] = 1
-                            elif check[current] ==1 :
-                                check[j] = 0
-                            queue.append(j)
-                        elif check[current] == check[j]:
+        #모든 노드를 살펴본다.  
+        #나와 연결된 친구가 나랑 다른 팀이여야 한다
+        # 미할당 0, A는 1, B는 2이다.
+        # 미할당이면 나랑 반대로 넣는다
+        # 할당인데 나랑 같으면 바로 False
+        answer = True
+        visited= [0]*len(graph)
+        queue = deque()
+        def bfs(num):
+            queue.append(num)
+            visited[num] = 1
+            while queue:
+                cur = queue.popleft()
+                for i in graph[cur]:
+                    if not visited[i]:
+                        if visited[cur] == 1:
+                            visited[i] = 2
+                        elif visited[cur] == 2:
+                            visited[i] = 1
+                        queue.append(i)
+                    else:
+                        if visited[cur] == visited[i]:
                             return False
+            return True
+        
+        for i in range(len(graph)):
+            if not visited[i] and not bfs(i):
+                return False
         return True
+                    
+                    
+                
+                
