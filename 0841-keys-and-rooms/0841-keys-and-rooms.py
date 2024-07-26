@@ -2,20 +2,18 @@ from collections import deque
 
 class Solution:
     def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
-        # 노드로 이동하기
-        #0번째 방에서 시작해서 이동
-        queue = deque()
-        queue.append(rooms[0])
+        #0번 방에서 시작해서 방을 다 갈 수 있냐 없냐를 불린으로 반환
+        queue = deque([0])
         visited = [0]*len(rooms)
-        visited[0] = 1
+        visited[0]=1
+        
         while queue:
-            cur = queue.popleft()
-            if cur:
-                for i in cur:
-                    if not visited[i]:
-                        visited[i] = 1
-                        queue.append(rooms[i])
-        if 0 in visited:
-            return False
-        else: 
+            current = queue.popleft()
+            for i in rooms[current]:
+                if not visited[i]:
+                    queue.append(i)
+                    visited[i] = 1
+        if all(visited):
             return True
+        else:
+            return False
