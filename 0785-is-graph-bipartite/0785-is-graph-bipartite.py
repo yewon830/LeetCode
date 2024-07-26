@@ -9,8 +9,9 @@ class Solution:
         # 할당인데 나랑 같으면 바로 False
         answer = True
         visited= [0]*len(graph)
-        queue = deque()
+        
         def bfs(num):
+            queue = deque()
             queue.append(num)
             visited[num] = 1
             while queue:
