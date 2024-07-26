@@ -11,17 +11,17 @@ class Solution:
         cnt = 0
         while left<right:
             if height[left] <= height[right]:
-                left += 1
                 if top_left < height[left]:
                     top_left = height[left]
                 else:
                     cnt += top_left - height[left]
+                left += 1
             else:
-                right -= 1
                 if top_right < height[right]:
                     top_right = height[right]
                 else:
                     cnt += top_right - height[right]
+                right -= 1
         return cnt
 
             
