@@ -1,47 +1,44 @@
-import copy
-
 class Solution:
     def solveNQueens(self, n: int) -> List[List[str]]:
-        # 결과 모든걸 출력.
-        #검증 로직 
-        board = [['.']*n for _ in range(n)]
+        # 행 단위로 움직이기 #나중에 문자열로 쪼인 해야함
         result = []
-        def check(board, r, c):
+        board = [['.']*n for _ in range(n)]
+        def check(board,r,c):
             if 'Q' in board[r]:
                 return False
             for i in range(r):
                 if board[i][c] == 'Q':
                     return False
+            #대각선 검사(내 위쪽으로)
+            i = r-1
+            j = c-1
             #왼쪽 대각선
-            i = r - 1
-            j = c -1
-            while(i>=0 and j>=0):
-                if(board[i][j]== 'Q'):
+            while i>= 0 and j>=0:
+                if board[i][j] == 'Q':
                     return False
                 i -= 1
-                j -= 1
-            # 오른쪽 대각선
-            k = r -1
-            l = c + 1
-            while (k>=0 and l<=n-1):
-                if(board[k][l] == 'Q'):
+                j -= 1 
+            k = r-1
+            l = c +1
+            while k >= 0 and l <= n-1:
+                if board[k][l] == 'Q':
                     return False
                 k -= 1
                 l += 1
-                
+
             return True
         
-        def backTracking(board, i):
-            
+        def backTracking(i, board):
             if i == n:
                 result.append([''.join(row) for row in board])
                 return
-            #행 단위로 옮기기
+            
             for j in range(n):
-                if(check(board,i,j)):
+                if check(board,i,j):
                     board[i][j] = 'Q'
-                    backTracking(board, i+1)
+                    backTracking(i+1,board)
                     board[i][j] = '.'
-        backTracking(board, 0)
+        backTracking(0,board)
         return result
+            
             
