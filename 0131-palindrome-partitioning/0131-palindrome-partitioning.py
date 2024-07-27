@@ -1,18 +1,22 @@
 class Solution:
-    def partition(self, s):
+    def partition(self, s: str) -> List[List[str]]:
+        # 회문인 거 모음
+        # 슬라이싱 범위를 조정.
         result = []
-        def backTracking(start, partitions ):
+        def backTracking(start,path):
+            
             if start == len(s):
-                result.append(partitions[:])
+                result.append(path[:])
                 return
             
-            # 이 부분이 슬라이싱 범위를 추가해주는 부분
             for i in range(start+1, len(s)+1):
-                chars = s[start:i]
-                # 회문 검사
-                if chars == chars[::-1]:
-                    partitions.append(chars)
-                    backTracking(i,partitions)
-                    partitions.pop()
+                char = s[start:i]
+                if char == char[::-1]:
+                    path.append(char)
+                    backTracking(i, path)
+                    path.pop()
         backTracking(0,[])
         return result
+                
+                
+            
