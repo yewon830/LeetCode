@@ -3,45 +3,36 @@ class Solution:
         """
         Do not return anything, modify board in-place instead.
         """
-        # 스도쿠 풀기
-        # 1; 행,열, 3*3 검증
-        # 2. 한칸씩 이동, 백트래킹 돌려서 하나씩 검증하기
-        
-        def check(r,c,n):
-            # 행 검사
-            if n in board[r]:
+        #1칸씩 움직이면서 모든 경우의 수 탐색하기
+        # .이면 움직이고,
+        # visited = [[0]*9 for _ in range(9)]
+        def check(r,c,num):
+            # 행 검사(같은 수 없어야)
+            if num in board[r]:
                 return False
             for i in range(9):
-                if n == board[i][c]:
-                    return False
-            start_r, start_c = (r//3)*3, (c//3)*3
-            for i in range(start_r, start_r+3):
-                for j in range(start_c, start_c+3):
-                    if board[i][j] == n:
+                    if board[i][c] == num:
+                        return False
+            s_row = (r//3)*3
+            s_col = (c//3)*3
+            for i in range(s_row, s_row+3):
+                for j in range(s_col, s_col+3):
+                    if board[i][j] == num:
                         return False
             return True
         
-        #백트래킹
-        def backTracking(index):
-            if index == 81:
+        def backTracking(idx):
+            if idx == 81:
                 return True
-            
-            i, j = index//9, index%9
-            
-            if board[i][j] == ".":
-                for n in map(str, range(1,10)):
-                    # 수 하나씩 넣어보기
-                    if check(i,j,n):
-                        board[i][j] = n
-                        if backTracking(index+1):
+            r = idx//9
+            c = idx % 9
+            if  board[r][c]== '.' :
+                for i in map(str,range(1,10)):
+                    if check(r,c,i):
+                        board[r][c] = i
+                        if backTracking(idx+1):
                             return True
-                        board[i][j] = "."
-                return False
+                        board[r][c] = '.'
             else:
-                return backTracking(index+1)
-        
+                return backTracking(idx+1)
         backTracking(0)
-                
-            
-        
-        
