@@ -29,9 +29,8 @@ class Solution:
             flag = True
             for v in adjL[cur_node]:
                 # 방문 안했다면 거기 인디그리 줄이기
-                if not visited[v] and indegree[v]:
-                    indegree[v] -= 1    
-                if not visited[v] and indegree[v] == 0:
+                indegree[v] -= 1    
+                if indegree[v] == 0:
                     queue.append(v)
                     visited[v] = 1
                 
