@@ -13,14 +13,10 @@ class Solution:
      
         queue = deque()
         
-        flag = False
         for i in range(len(indegree)):
             if indegree[i] == 0:
-                flag = True
                 queue.append(i)
                 visited[i] = 1
-        if not flag:
-            return False
         
         
         #인디그리가 0인걸로 시작해서 탐색하면서 1씩 줄이기
