@@ -1,25 +1,20 @@
 from collections import deque
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        #코인을 누적으로 더해준다
-        #queue에 지금 합, cnt를 넣는다.
-        # 총량을 찾으면 .cnt 반환한다
-        # 총량보다 적을 때만 append한다
-        if amount == 0:
-            return 0
+        # bfs말고 dp로 풀어보자
+        dp = [1000000]*(amount+1) #여기에 idx가 coin으로 도달할 수 있는 최소 갯수 들어있음
         
-        queue = deque([(0,0)])
-        visited = set()
-        while queue:
-            money, cnt = queue.popleft()
-            if money == amount:
-                return cnt
-            for i in range(len(coins)):
-                next_money = coins[i] + money
-                if next_money not in visited and next_money <= amount:
-                    queue.append((next_money, cnt+1))
-                    visited.add(next_money)
-        return -1
+        dp[0]=0
+        for i in range(amount+1):
+            #하나씩 더하기(코인이 몇개인지 모름)
+            for coin in coins:
+                # 지금 idx + coin이 zmount보다 작으면
+                if i+coin <=amount:
+                    dp[i+coin]=min(dp[i]+1, dp[i+coin]) #코인 더하기 전+1,
+        
+        if dp[amount] == 1000000:
+            return -1
+        return dp[amount]
             
         
                     
