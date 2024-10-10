@@ -9,14 +9,9 @@ class Solution:
         
         dp = [0]*len(nums)
         dp[0] = nums[0]
-        if len(nums) ==1:
-            return dp[0]
         
         for i in range(1,len(nums)):
-            #음수
-            if dp[i-1] <0:
-                dp[i] = nums[i]
-            else:
-                dp[i] = nums[i] + dp[i-1]
+            dp[i] = max(dp[i-1]+nums[i],nums[i])
+            
         return max(dp)
         
